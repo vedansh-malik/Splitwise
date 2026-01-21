@@ -1,23 +1,23 @@
-# 💸 SplitwisePro
+#  SplitwisePro
 
 > **Smart expense sharing for groups, powered by AI.**
 > Effortlessly track bills, split costs, and settle debts with an optimized algorithm that minimizes the number of transactions.
 
-![Project Banner](https://via.placeholder.com/1200x400?text=SplitwisePro+Banner+Image+Here)
+![Project Banner](https://github.com/vedansh-malik/Splitwise/blob/d8b0e31bf7aa2279902b3c918c7cca88b5501413/report/Screenshot%202026-01-21%20224150.png)
 
-## 📱 Screenshots
+##  Screenshots
 
 | **Dashboard (Desktop)** | **Mobile View** |
 |:---:|:---:|
-| ![Dashboard](https://via.placeholder.com/500x300?text=Place+Dashboard+Screenshot+Here) | ![Mobile](https://via.placeholder.com/250x450?text=Mobile+View+Here) |
+| ![Dashboard](https://github.com/vedansh-malik/Splitwise/blob/d8b0e31bf7aa2279902b3c918c7cca88b5501413/report/Screenshot%202026-01-21%20224150.png) | ![Mobile](https://github.com/vedansh-malik/Splitwise/blob/d8b0e31bf7aa2279902b3c918c7cca88b5501413/report/WhatsApp%20Image%202026-01-21%20at%2022.41.19.jpeg) |
 
 | **Group Expense Management** | **AI Financial Assistant** |
 |:---:|:---:|
-| ![Group View](https://via.placeholder.com/500x300?text=Group+Details+Screen) | ![AI Chat](https://via.placeholder.com/500x300?text=Gemini+Chat+Assistant) |
+| ![Group View](https://github.com/vedansh-malik/Splitwise/blob/d8b0e31bf7aa2279902b3c918c7cca88b5501413/report/Screenshot%202026-01-21%20222514.png) | ![AI Chat](https://github.com/vedansh-malik/Splitwise/blob/d8b0e31bf7aa2279902b3c918c7cca88b5501413/report/Screenshot%202026-01-21%20223020.png) |
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
 - **🔐 Secure Authentication:** Full Login/Signup system using JWT (JSON Web Tokens).
 - **👥 Group Management:** Create groups and add members to start tracking shared costs.
@@ -32,7 +32,7 @@
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 **Frontend:**
 - React.js (Vite)
@@ -50,7 +50,7 @@
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Node.js (v14+)
@@ -61,17 +61,19 @@
 ```bash
 git clone [https://github.com/your-username/splitwisepro.git](https://github.com/your-username/splitwisepro.git)
 cd splitwisepro
+```
 2. Backend Setup
 Navigate to the backend folder and install dependencies:
 
-Bash
+```Bash
 
 cd backend
 npm install
+```
+
 Create a .env file in the backend directory:
 
-Code snippet
-
+```bash
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_super_secret_jwt_key
@@ -80,51 +82,55 @@ GEMINI_API_KEY=your_google_gemini_api_key
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_email_app_password
 Start the server:
-
-Bash
+```
+```Bash
 
 npm start
 # Server running on port 5000
 # MongoDB Connected
+```
 3. Frontend Setup
 Navigate to the frontend folder (root or src) and install dependencies:
 
-Bash
+```Bash
 
 cd ../frontend  # (Or just 'cd ..' if your frontend is in the root)
 npm install
+```
 Start the React app:
 
-Bash
+```Bash
+npm start
+```
+##  API Documentation
 
-npm run dev
-🔌 API Endpoints
-Method	Endpoint	Description
-POST	/api/auth/signup	Register a new user
-POST	/api/auth/login	Login and receive JWT
-GET	/api/groups	Get all groups for the logged-in user
-POST	/api/groups	Create a new group
-GET	/api/groups/:id	Get group details & expenses
-GET	/api/groups/:id/balances	Get optimized debt settlements
-POST	/api/expenses	Add a new expense (triggers email)
-POST	/api/chat	Ask the AI Assistant a question
+### **Authentication**
+* **POST** `/api/auth/signup` - Register a new user
+* **POST** `/api/auth/login` - Login and receive a JWT token
 
-Export to Sheets
+### **Groups**
+* **GET** `/api/groups` - Get all groups for the current user
+* **POST** `/api/groups` - Create a new group
+* **GET** `/api/groups/:id` - Get group details and expenses
+* **GET** `/api/groups/:id/balances` - **Get optimized debt settlements**
 
-🤝 Contributing
-Contributions are welcome!
+### **Expenses**
+* **POST** `/api/expenses` - Add a new expense (triggers email notification)
+* **PUT** `/api/expenses/:id` - Update an existing expense
+* **DELETE** `/api/expenses/:id` - Remove an expense
+* **GET** `/api/expenses/balances` - Get global balances for the logged-in user
 
-Fork the project.
+### **AI Chat**
+* **POST** `/api/chat` - Ask the Fin-AI assistant a question about your dashboard
 
-Create your Feature Branch (git checkout -b feature/AmazingFeature).
+---
 
-Commit your changes (git commit -m 'Add some AmazingFeature').
+##  Contributing
 
-Push to the Branch (git push origin feature/AmazingFeature).
+Contributions are welcome! Please follow these steps:
 
-Open a Pull Request.
-
-📝 License
-Distributed under the MIT License. See LICENSE for more information.
-
-Made with ❤️ by [Your Name]
+* **Fork** the repository.
+* **Create** your feature branch: `git checkout -b feature/AmazingFeature`.
+* **Commit** your changes: `git commit -m 'Add some AmazingFeature'`.
+* **Push** to the branch: `git push origin feature/AmazingFeature`.
+* **Open** a Pull Request.
