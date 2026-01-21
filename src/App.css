@@ -1,0 +1,485 @@
+/* =========================================
+   1. GLOBAL RESET & THEME VARIABLES
+   ========================================= */
+   *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  :root {
+    /* --- THEME: MATTE SMOKE & BURNT ORANGE --- */
+    
+    /* 1. BACKGROUND */
+    --bg-base: #0a0a0a; 
+    --bg-gradient: linear-gradient(180deg, #171717 0%, #050505 100%);
+  
+    /* 2. CARDS */
+    --card-bg: linear-gradient(145deg, #1c1917 0%, #0c0a09 100%); 
+    --card-border: rgba(255, 255, 255, 0.06); 
+    --card-highlight: rgba(255, 255, 255, 0.08); 
+    --card-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8); 
+  
+    /* 3. ACCENT */
+    --primary: #EA580C;       /* Burnt Orange */
+    --primary-gradient: linear-gradient(135deg, #EA580C 0%, #9A3412 100%); 
+    --primary-glow: rgba(234, 88, 12, 0.15); 
+  
+    /* --- TEXT COLORS --- */
+    --text-main: #E5E5E5;     /* Off-white */
+    --text-muted: #A3A3A3;    /* Neutral Grey */
+    --text-dark: #FFFFFF;     
+    
+    --success: #10B981;       /* Mint */
+    --danger: #EF4444;        /* Red */
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-base);
+    background-image: var(--bg-gradient);
+    background-attachment: fixed; 
+    color: var(--text-muted);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* Main Container Layout */
+  .container {
+    max-width: 1200px; 
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    padding-top: 120px; /* Space for Fixed Nav */
+  }
+  
+  /* =========================================
+     2. AMBIENT BACKGROUND SMOKE
+     ========================================= */
+  body::before, body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.08;
+    z-index: -1;
+    pointer-events: none;
+  }
+  
+  body::before {
+    top: -10%; right: -5%; width: 600px; height: 600px;
+    background: radial-gradient(circle, #EA580C 0%, transparent 60%);
+    animation: float 20s infinite ease-in-out;
+  }
+  
+  body::after {
+    bottom: -10%; left: -5%; width: 700px; height: 700px;
+    background: radial-gradient(circle, #44403c 0%, transparent 60%);
+  }
+  
+  @keyframes float {
+    0% { transform: translate(0,0); }
+    50% { transform: translate(-20px, 20px); }
+    100% { transform: translate(0,0); }
+  }
+  
+  /* =========================================
+     3. SHARED COMPONENT STYLES
+     ========================================= */
+  
+  /* --- Card Base --- */
+  .card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border);
+    border-top: 1px solid var(--card-highlight);
+    border-radius: 24px; 
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    width: 100%;
+    color: var(--text-main);
+    margin-bottom: 30px;
+  }
+  
+  /* --- Typography --- */
+  h1, h2, h3 { color: var(--text-main); margin-top: 0; font-weight: 700; letter-spacing: -0.5px; }
+  p, span, label { color: var(--text-muted); }
+  
+  .text-gradient {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+  }
+  
+  /* --- Buttons --- */
+  button, .btn-primary, .link-btn {
+    background: var(--primary-gradient);
+    color: white;
+    border: none; padding: 14px 28px; border-radius: 14px;
+    font-weight: 600; cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    text-decoration: none; font-size: 0.95rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  }
+  button:hover, .btn-primary:hover, .link-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
+    color: white;
+  }
+  
+  button.secondary, .btn-outline {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-muted);
+    box-shadow: none;
+  }
+  button.secondary:hover, .btn-outline:hover {
+    border-color: var(--text-main);
+    color: var(--text-main);
+    background: rgba(255,255,255,0.05);
+  }
+  
+  .btn-full { width: 100% !important; }
+  .btn-lg { padding: 16px 36px; font-size: 1.1rem; border-radius: 50px; }
+  
+  /* --- Inputs --- */
+  input, select {
+    width: 100%; padding: 16px; margin: 12px 0;
+    background: #171717;
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    border-radius: 16px;
+    color: var(--text-main); font-size: 1rem; outline: none; transition: all 0.2s;
+  }
+  input:focus, select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px var(--primary-glow);
+    background: #262626;
+  }
+  
+  /* --- Utilities --- */
+  .flex { display: flex; align-items: center; gap: 10px; }
+  .flex-between { display: flex; justify-content: space-between; align-items: center; }
+  
+  /* =========================================
+     4. NAVIGATION (Floating Deck)
+     ========================================= */
+  .navbar-glass, .landing-nav {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    
+    width: 92%;           
+    max-width: 1200px;    
+    height: 64px;         
+    
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(24px);       
+    -webkit-backdrop-filter: blur(24px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px; 
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    
+    box-shadow: 
+      0 20px 40px -10px rgba(0, 0, 0, 0.8),
+      0 10px 30px -10px rgba(234, 88, 12, 0.05); 
+  }
+  
+  /* Logo */
+  .logo, .nav-logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon, .nav-logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, rgba(234, 88, 12, 0.15) 0%, rgba(234, 88, 12, 0.05) 100%);
+    border: 1px solid rgba(234, 88, 12, 0.2);
+    border-radius: 10px;
+    display: flex; align-items: center; justifyContent: center;
+    color: var(--primary);
+  }
+  .logo-text, .nav-logo-text { font-size: 1.1rem; font-weight: 800; color: var(--text-main); }
+  
+  /* Logout Button */
+  .nav-btn-glass {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    height: 40px; padding: 0 20px; border-radius: 12px;
+    font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer;
+  }
+  
+  /* =========================================
+     5. DASHBOARD STYLES
+     ========================================= */
+  
+  /* Grid */
+  .grid {
+    display: flex;
+    flex-direction: column-reverse; 
+    gap: 24px;
+  }
+  @media (min-width: 1024px) {
+    .grid { display: grid; grid-template-columns: 2fr 1fr; }
+  }
+  
+  /* Group Row */
+  .group-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px; 
+    padding: 20px 24px;
+    margin-bottom: 12px; 
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+  .group-row:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.15); 
+    background: linear-gradient(90deg, #201e1d 0%, #1c1917 100%);
+  }
+  .row-icon {
+    width: 50px; height: 50px; border-radius: 14px;
+    background: rgba(255, 255, 255, 0.05); color: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    margin-right: 20px; flex-shrink: 0;
+  }
+  
+  /* Header Card ("Hey Name") */
+  .header-card {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 30px; margin-bottom: 24px;
+  }
+  .header-title { font-size: 2.2rem; margin: 0; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .profile-btn { width: 50px; height: 50px; border-radius: 16px; background: rgba(255,255,255,0.03); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1); }
+  
+  /* Balance Card */
+  .balance-card { text-align: center; padding: 30px 20px; }
+  .balance-amount { font-size: 2.5rem; font-weight: 900; margin-bottom: 10px; text-shadow: 0 0 30px rgba(255, 214, 10, 0.15); }
+  
+  /* =========================================
+     6. LANDING PAGE STYLES
+     ========================================= */
+  .landing-wrapper {
+    background-color: #050505; 
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(234, 88, 12, 0.08), transparent 25%), 
+      radial-gradient(circle at 85% 30%, rgba(50, 50, 50, 0.05), transparent 25%);
+  }
+  
+  /* Fixed Version (Centered & Aligned) */
+  .hero { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    align-items: center; 
+    gap: 60px; 
+    padding: 140px 20px 80px 20px;
+    
+    /* --- THE FIX --- */
+    max-width: 1200px; /* Constraints width to match navbar/features */
+    margin: 0 auto;    /* Centers the container in the middle of screen */
+    width: 100%;       /* Ensures it takes space up to 1200px */
+  }
+  .hero-title { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 24px; color: white; }
+  .hero-subtitle { font-size: clamp(1rem, 2vw, 1.2rem); color: #a1a1aa; line-height: 1.6; margin-bottom: 32px; max-width: 90%; }
+  .badge-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; background: rgba(234, 88, 12, 0.1); border: 1px solid rgba(234, 88, 12, 0.2); border-radius: 100px; color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 24px; }
+  
+  /* Visual Stack */
+  .hero-visual-container {
+    position: relative; display: flex; justify-content: center; align-items: center; perspective: 1000px; z-index: 1;
+  }
+  .hero-visual-container::before {
+    content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 350px; height: 350px; background: radial-gradient(circle, rgba(234, 88, 12, 0.3) 0%, transparent 65%);
+    filter: blur(60px); z-index: -1; opacity: 1;
+  }
+  .glass-card-stack { width: 100%; max-width: 420px; animation: floatCard 6s ease-in-out infinite; transform-style: preserve-3d; }
+  @keyframes floatCard { 0%, 100% { transform: translateY(0px) rotateY(-5deg) rotateX(2deg); } 50% { transform: translateY(-15px) rotateY(-5deg) rotateX(2deg); } }
+  
+  .visual-card {
+    background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); transition: all 0.3s ease;
+  }
+  
+  .visual-card.back {
+    position: absolute; top: -80px; right: -80px; z-index: 1;
+    transform: scale(0.7) translateZ(-20px); transform-origin: center center;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 30px rgba(255, 255, 255, 0.05);
+    opacity: 1;
+  }
+  .visual-card.front {
+    position: relative; z-index: 2;
+    border-top: 1px solid rgba(255, 255, 255, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: linear-gradient(145deg, rgba(30, 30, 30, 0.85), rgba(10, 10, 10, 0.95));
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(234, 88, 12, 0.1);
+  }
+  
+  .hero-visual-container:hover .visual-card.back { transform: scale(0.72) translateZ(-10px) translateX(-20px); border-color: rgba(255, 255, 255, 0.3); }
+  .hero-visual-container:hover .visual-card.front { transform: translateZ(10px) translateY(-5px); }
+  
+  /* Bento Grid */
+  .features-section { max-width: 1200px; margin: 0 auto; padding: 40px 24px 100px 24px; }
+  .bento-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .bento-item.featured { grid-column: span 2; }
+  .bento-item {
+    background: #0f0f0f; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; padding: 32px;
+    transition: all 0.3s ease; position: relative; overflow: hidden; display: flex; flex-direction: column;
+  }
+  .bento-item:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 40px -10px rgba(234, 88, 12, 0.15); }
+  
+  /* =========================================
+     7. ANIMATIONS
+     ========================================= */
+  @keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(20px) scale(0.98); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  
+  .animate-entry { opacity: 0; animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  .spin { animation: spin 1s linear infinite; }
+  
+  /* =========================================
+     8. MOBILE RESPONSIVENESS (CONSOLIDATED)
+     ========================================= */
+  
+  /* Default: Hide mobile bottom nav on desktop */
+  .mobile-nav { display: none !important; }
+  
+  /* TABLET & MOBILE (900px and below) */
+  @media (max-width: 900px) {
+    /* Landing Page Grid Stacking */
+    .hero { 
+      grid-template-columns: 1fr; /* Stack Hero Vertically */
+      text-align: center; 
+      padding-top: 100px; 
+      gap: 40px; 
+    }
+    .hero-content { margin: 0 auto; }
+    .hero-buttons { justify-content: center; }
+    .hero-visual-container { padding: 0 10px; }
+    .glass-card-stack { max-width: 350px; } /* Smaller visual */
+    
+    /* Reset Bento Grid Spans */
+    .bento-item.featured { grid-column: span 1; }
+    .bento-grid { grid-template-columns: 1fr; }
+    
+    /* Dashboard Grid Stacking */
+    .grid { display: flex; flex-direction: column-reverse; }
+  }
+  
+  /* MOBILE PHONES (768px and below) */
+  @media (max-width: 768px) {
+    /* --- 1. GLOBAL LAYOUT --- */
+    .container { 
+      padding: 16px; 
+      padding-top: 85px; /* Tighter top space */
+      padding-bottom: 100px; /* Space for bottom nav */
+    }
+    
+    /* --- 2. NAVBAR ADJUSTMENTS --- */
+    .navbar-glass, .landing-nav { 
+      top: 10px; 
+      width: 92%; 
+      height: 56px; 
+      padding: 0 16px; 
+    }
+    .nav-btn-glass { display: none; }
+    .logo-text, .nav-logo-text { font-size: 1rem; }
+    
+    /* Show Mobile Bottom Nav */
+    .mobile-nav { display: flex !important; }
+  
+    /* --- 3. DASHBOARD: COMPACT HEADER --- */
+    .header-card { 
+      padding: 12px 16px !important;
+      margin-bottom: 12px !important;
+      border-radius: 16px;
+      min-height: auto;
+    }
+    .header-title { font-size: 1.3rem !important; }
+    .header-subtitle { font-size: 0.75rem !important; margin-top: 2px; }
+    .profile-btn { width: 36px; height: 36px; border-radius: 10px; }
+    
+
+    /* --- 4. DASHBOARD: BALANCE CARD GAP FIX (New Addition) --- */
+  /* This targets the 2nd item in the grid (Balance Card Wrapper) */
+  .grid > div:last-child {
+    position: static !important;  /* Stops it from being sticky */
+    top: auto !important;         /* Removes the 140px gap */
+    margin-top: 0 !important;     /* Removes top margin */
+    margin-bottom: 12px !important; /* Small gap before groups */
+  }
+  /* Tighten the grid gap itself */
+  .grid {
+    gap: 12px !important;
+  }
+    /* --- 4. DASHBOARD: COMPACT BALANCE CARD --- */
+    .balance-card { 
+      padding: 16px !important; 
+      border-radius: 18px;
+    }
+    .balance-card h3 { 
+      font-size: 0.65rem !important; margin-bottom: 4px !important; opacity: 0.7; 
+    }
+    .balance-amount { 
+      font-size: 1.5rem !important; /* Smaller Number */
+      margin-bottom: 12px !important; 
+      line-height: 1.1; 
+    }
+    /* Stats text */
+    .balance-card span[style*="font-size: 0.8rem"] { font-size: 0.7rem !important; }
+    .balance-card span[style*="font-size: 1.1rem"] { font-size: 0.95rem !important; }
+  
+    /* --- 5. DASHBOARD: COMPACT GROUP ROWS --- */
+    .group-row {
+      padding: 12px 14px !important;
+      margin-bottom: 10px !important;
+      border-radius: 16px !important;
+    }
+    .row-icon {
+      width: 40px !important; height: 40px !important;
+      border-radius: 10px !important; margin-right: 12px !important;
+    }
+    .row-icon svg { width: 20px !important; height: 20px !important; }
+    .row-title { font-size: 0.95rem !important; margin-bottom: 2px !important; }
+    .row-sub { font-size: 0.75rem !important; }
+    
+    /* Money Text in Groups */
+    .group-row span[style*="font-weight: 800"] { font-size: 0.85rem !important; }
+    .group-row span[style*="text-transform: uppercase"] { font-size: 0.65rem !important; }
+    
+    /* Optional: Hide arrow */
+    .row-action { width: 28px !important; height: 28px !important; margin-left: 8px !important; }
+    .row-action svg { width: 16px !important; height: 16px !important; }
+  
+    /* --- 6. LANDING PAGE MOBILE TWEAKS --- */
+    .hero { 
+      padding-top: 80px; 
+      gap: 40px; 
+    }
+    .hero-title {
+      font-size: 2.2rem !important; /* Force smaller title on phone */
+    }
+    .hero-buttons { 
+      flex-direction: column; /* Stack buttons on very small screens */
+      width: 100%;
+    }
+    .hero-buttons a {
+      width: 100%; /* Full width buttons */
+      justify-content: center;
+    }
+    .bento-item { 
+      padding: 24px; 
+    }
+  }
