@@ -3,7 +3,7 @@
 > **Smart expense sharing for groups, powered by AI.**
 > Effortlessly track bills, split costs, and settle debts with an optimized algorithm that minimizes the number of transactions.
 
-![Project Banner](https://github.com/vedansh-malik/Splitwise/blob/d8b0e31bf7aa2279902b3c918c7cca88b5501413/report/Screenshot%202026-01-21%20224150.png)
+![Project Banner](https://github.com/vedansh-malik/Splitwise/blob/752ff61b55cd6a1b5ca181a0d7400617cb7e8528/report/Screenshot%202026-01-21%20095614.png)
 
 ##  Screenshots
 
