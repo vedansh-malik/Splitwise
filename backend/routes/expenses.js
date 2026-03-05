@@ -17,9 +17,9 @@ const validateSplit = (amount, splitType, splitDetails) => {
   return null;
 };
 
-// ==========================================
-// 1. GET GLOBAL BALANCES (The Missing Piece)
-// ==========================================
+
+//  GET GLOBAL BALANCES 
+
 router.get('/balances', auth, async (req, res) => {
   try {
     const userId = req.user.id;
@@ -87,9 +87,9 @@ router.get('/balances', auth, async (req, res) => {
   }
 });
 
-// ==========================================
-// 2. CREATE EXPENSE (With Email)
-// ==========================================
+
+//  CREATE EXPENSE (With Email)
+
 router.post('/', auth, async (req, res) => {
   try {
     const { description, amount, groupId, splitType, splitDetails, paidBy } = req.body;
@@ -152,9 +152,9 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
-// ==========================================
-// 3. OTHER ROUTES
-// ==========================================
+
+//  OTHER ROUTES
+
 
 // UPDATE Expense
 router.put('/:id', auth, async (req, res) => {
